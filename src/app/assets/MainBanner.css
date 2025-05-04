@@ -1,0 +1,66 @@
+/* Swiper Navigation Button Base Styles */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 50px !important;
+  height: 50px !important;
+  background: transparent !important;
+  border: 2px solid white !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Remove default Swiper arrows */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none !important;
+}
+
+/* Add custom arrow images */
+.swiper-button-next {
+  right: var(--swiper-navigation-sides-offset, 40px) !important;
+  background-image: url('../../../public/right-arrow.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.swiper-button-prev {
+  left: var(--swiper-navigation-sides-offset, 40px) !important;
+  background-image: url('../../../public/right-arrow.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transform: scaleX(-1) !important; /* Flip the image for "left" arrow */
+}
+
+/* Optional Hover Effect */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Ensure pagination container is positioned correctly */
+.swiper-pagination {
+  bottom: 20px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 2px !important;
+}
+
+/* Default bullet styles */
+.swiper-pagination-bullet {
+  width: 6px !important;
+  height: 6px !important;
+  background-color: rgba(255, 255, 255, 0.5) !important; /* Semi-transparent white */
+  opacity: 1 !important;
+  border-radius: 0 !important; /* Makes it a square */
+  transition: all 0.3s ease-in-out !important;
+}
+
+/* Active bullet style */
+.swiper-pagination-bullet-active {
+  background-color: white !important; /* Fully white for the active bullet */
+  width: 6px !important;
+  height: 6px !important;
+}
