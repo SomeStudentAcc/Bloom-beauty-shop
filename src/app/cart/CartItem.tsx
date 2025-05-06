@@ -22,6 +22,12 @@ export default function CartItem({ product, removeProduct }: Props) {
     }
   }, [cart, product.id]);
 
+  useEffect(() => {
+    if (amount < 1) {
+      removeProduct(product.id);
+    }
+  }, [amount]);
+
   return (
     <div className="grid grid-cols-5 gap-4 items-center border-[#F3F3F3] border-b py-8">
       <div className="flex gap-4 items-center">
@@ -61,8 +67,7 @@ export default function CartItem({ product, removeProduct }: Props) {
           <button
             onClick={() => {
               decrease(product.id);
-              removeProduct(product.id);
-              setAmount((prev) => prev--);
+              setAmount(amount - 1);
             }}
             className="px-2 border w-10 h-10 flex justify-center items-center"
           >
@@ -83,9 +88,9 @@ export default function CartItem({ product, removeProduct }: Props) {
 
       <div className="flex justify-center font-bold text-sm">
         {product.is_discount > 0 ? (
-          <span>{formatPrice(Number(product.price))} сум</span>
+          <span>{formatPrice(Number(product.price) * amount)} сум</span>
         ) : (
-          <span>{formatPrice(Number(product.old_price))} сум</span>
+          <span>{formatPrice(Number(product.old_price) * amount)} сум</span>
         )}
       </div>
 

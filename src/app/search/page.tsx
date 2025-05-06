@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import SearchContainer from "./SearchContainer";
+
+export const metadata: Metadata = {
+  title: 'Search'
+};
 
 export default async function Search() {
 

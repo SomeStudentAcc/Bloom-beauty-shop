@@ -1,10 +1,15 @@
 import React from "react";
 
 import CatalogContainer from "../CatalogContainer";
+import { Metadata } from "next";
 
 interface Params {
   url: string;
 }
+
+export const metadata: Metadata = {
+  title: 'Catalog'
+};
 
 export default async function CatalogGroup({ params }: { params: Params }) {
   const { url } = await params;

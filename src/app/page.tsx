@@ -7,6 +7,11 @@ import MainProducts from "@/components/shared/MainProducts";
 import NewProducts from "@/components/shared/NewProducts";
 import TelegramPromotions from "@/components/shared/TelegramPromotions";
 import { IGetData, IGetMainProducts } from "@/types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Main'
+};
 
 export default async function Home() {
   const res = await axiosInstance.get("/get-data/");

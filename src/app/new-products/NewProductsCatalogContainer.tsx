@@ -9,12 +9,10 @@ import { Pagination } from "@/components/shared/Pagination";
 import CatallogFilters from "../catalog/CatallogFilters";
 import CatalogProducts from "../catalog/CatalogProducts";
 
-interface Props{
-  brand: string
-}
-
-export default function NewProductsCatalogContainer({brand}:Props) {
+export default function NewProductsCatalogContainer() {
   const searchParams = useSearchParams();
+  const [brands, setBrands] = useState<string[]>([]);
+
   const [page, setPage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(0);
   const [products, setProducts] = useState<INewProduct[]>([]);
@@ -31,6 +29,8 @@ export default function NewProductsCatalogContainer({brand}:Props) {
 
   useEffect(() => {
     const params = qs.parse(searchParams.toString());
+    const brands = params.brands ? (params.brands as string).split(",") : [];
+
     const discounts = params.discounts
       ? (params.discounts as string).split(",")
       : [];
@@ -45,13 +45,14 @@ export default function NewProductsCatalogContainer({brand}:Props) {
     const getProds = async () => {
       try {
         const formData = new FormData();
-        formData.append("brands", JSON.stringify([decodeURIComponent(brand)]));
+        formData.append("brands", JSON.stringify(brands));
         formData.append("filterCategories", JSON.stringify(categories));
         formData.append("price_from", priceFrom);
         formData.append("price_to", priceTo);
         formData.append("page", page.toString());
         formData.append("pageSize", "20");
         formData.append("sort", sort);
+        formData.append("is_new", "1");
         formData.append("discount_percentage", JSON.stringify(discounts));
 
         const res = await axiosInstance.post(`/get-products/`, formData);
@@ -59,6 +60,8 @@ export default function NewProductsCatalogContainer({brand}:Props) {
 
         console.log(response);
         setProducts(response.products);
+        setBrands(response.brands);
+
         setCategories(response.categories);
         setDiscounts(response.discounts);
         setPageCount(response.pageCount);
@@ -68,7 +71,7 @@ export default function NewProductsCatalogContainer({brand}:Props) {
     };
 
     getProds();
-  }, [page, setPage, searchParams, brand]);
+  }, [page, setPage, searchParams]);
 
   const handlePageChange = (newPage: number) => {
     const currentParams = qs.parse(searchParams.toString());
@@ -85,7 +88,7 @@ export default function NewProductsCatalogContainer({brand}:Props) {
       <div className="flex flex-col md:flex-row md:justify-between gap-[50px]">
         <div className="md:max-w-[250px] xl:max-w-[325px] w-full ">
           <CatallogFilters
-            brands={[]}
+            brands={brands}
             categories={categories}
             discounts={discounts}
           />

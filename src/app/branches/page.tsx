@@ -2,6 +2,11 @@ import React from "react";
 import BranchesContainer from "./BranchesContainer";
 import axiosInstance from "@/axios";
 import { IGetData } from "@/types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Branches'
+};
 
 export default async function Branches() {
     const res = await axiosInstance.get("/get-data/");

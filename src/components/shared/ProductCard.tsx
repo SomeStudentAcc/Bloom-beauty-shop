@@ -1,4 +1,5 @@
 'use client'
+
 import { INewProduct } from "@/types";
 import { formatPrice } from "@/utils";
 import Image from "next/image";
@@ -13,31 +14,34 @@ interface Props {
 
 export default function ProductCard({ product }: Props) {
   const { cart, addToCart, increase, decrease } = useCartStore();
-
+  
   const cartItem = cart.find((item) => item.id === product.id);
   const inCart = !!cartItem;
-
+  
   return (
     <div className="max-w-[21.2rem] w-full relative">
+      <div className="absolute left-0 flex flex-col gap-[1px]">
+        {product.is_discount == 1 && (
+          <div className=" w-10 h-10 bg-[#E44B55] flex justify-center items-center font-semibold text-white">
+            {product.discount_percentage}%
+          </div>
+        )}
+        {product.is_new == 1 && (
+          <div className="w-10 h-10 bg-[#FFA035] flex justify-center items-center font-semibold text-white">
+            new
+          </div>
+        )}
+      </div>
+      
+      {/* Like button outside the Link */}
+      <div className="absolute right-0 z-10 p-5" onClick={(e) => e.stopPropagation()}>
+        <ProductCardLikeBtn product={product} />
+      </div>
+      
       <Link href={`product/${product.url}`}>
-        <div className="absolute left-0 flex flex-col gap-[1px]">
-          {product.is_discount == 1 && (
-            <div className=" w-10 h-10 bg-[#E44B55] flex justify-center items-center font-semibold text-white">
-              {product.discount_percentage}%
-            </div>
-          )}
-          {product.is_new == 1 && (
-            <div className="w-10 h-10 bg-[#FFA035] flex justify-center items-center font-semibold text-white">
-              new
-            </div>
-          )}
-        </div>
-        <div className="absolute right-0 z-10 p-5">
-          <ProductCardLikeBtn product={product} />
-        </div>
         <div className="border-[#F3F3F3] border flex justify-center items-center mb-5 bg-white">
           <Image
-            src={product.imageUrl || "/tgBanner.svg"}
+            src={product.imageUrl || 'https://cdn.bloombeauty.uz/products/no-photo.png'}
             width={260}
             height={260}
             alt=""
@@ -48,7 +52,7 @@ export default function ProductCard({ product }: Props) {
           <p className="font-medium line-clamp-1">{product.name_ru}</p>
         </div>
       </Link>
-
+      
       <div className="flex gap-5 font-medium mb-3">
         {product.is_discount > 0 && (
           <span>{formatPrice(Number(product.price))} сум</span>
@@ -61,7 +65,7 @@ export default function ProductCard({ product }: Props) {
           {formatPrice(Number(product.old_price))} сум
         </span>
       </div>
-
+      
       {inCart ? (
         <div className="flex max-w-25 w-full items-center gap-3 bg-black text-white">
           <button
@@ -72,7 +76,7 @@ export default function ProductCard({ product }: Props) {
           </button>
           <p>{cartItem?.amount}</p>
           <button
-            className="w-8 h-8  flex justify-center items-center"
+            className="w-8 h-8 flex justify-center items-center"
             onClick={() => increase(product.id)}
           >
             +

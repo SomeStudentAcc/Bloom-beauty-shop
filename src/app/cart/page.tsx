@@ -8,6 +8,8 @@ import axiosInstance from "@/axios";
 import { INewProduct } from "@/types";
 import Link from "next/link";
 
+
+
 export default function Cart() {
   const { cart } = useCartStore();
   const [products, setProducts] = useState<INewProduct[]>([]);
@@ -17,7 +19,7 @@ export default function Cart() {
   useEffect(() => {
     const filteredIds = cart.map((el) => el.id);
     setIds(filteredIds);
-  }, [cart]);
+  }, []);
 
   useEffect(() => {
     const getProds = async () => {
@@ -43,6 +45,8 @@ export default function Cart() {
   const removeProduct = (id: string) => {
     const filteredProds = products.filter((el) => el.id !== id);
     setProducts(filteredProds);
+    console.log(filteredProds);
+    
 
     removeFromCart(id);
   };

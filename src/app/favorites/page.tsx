@@ -1,5 +1,10 @@
 import React from "react";
 import FovoriteGrid from "./FovoriteGrid";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Favorites'
+};
 
 export default function Favorite() {
   return (

@@ -1,5 +1,10 @@
-import NewProductsCatalogContainer from "@/app/new-products/NewProductsCatalogContainer";
 import React from "react";
+import BrandCatalogContainer from "./BrandCatalogContainer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Brands'
+};
 
 export default function BrandCatalog({
   params: { brand },
@@ -8,7 +13,7 @@ export default function BrandCatalog({
 }) {
   return (
     <div className="container mx-auto px-5 md:px-0 py-20">
-      <NewProductsCatalogContainer brand={brand} />
+      <BrandCatalogContainer brand={brand} />
     </div>
   );
 }

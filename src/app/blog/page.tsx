@@ -1,7 +1,12 @@
 import axiosInstance from "@/axios";
 import BlogCard from "@/components/shared/BlogCard";
 import { IGetData } from "@/types";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: 'Blog'
+};
 
 export default async function Blog() {
   const res = await axiosInstance.get("/get-data/");

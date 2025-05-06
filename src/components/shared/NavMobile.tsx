@@ -30,31 +30,40 @@ export default function NavMobile({ filteredGroup, groups }: Props) {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col lg:hidden ">
       <div className="bg-white border-b z-25">
-        <div className="container mx-auto px-5 md:px-0 pt-4 lg:hidden py-3 relative z-20">
+        <div className="container mx-auto px-5 md:px-0 pt-4 py-3 relative z-20">
           <div className="flex justify-between">
-            <Image src={"/logo-red.svg"} width={144} height={35} alt="Logo" />
+            <Link href={"/"}>
+              <Image src={"/logo-red.svg"} width={144} height={35} alt="Logo" />
+            </Link>
             <div className="flex gap-8 items-center">
-              <Image
-                src={"/search-zoom.svg"}
-                width={20}
-                height={20}
-                alt="Search"
-              />
-              <Image
-                src={"/like-gray.svg"}
-                width={20}
-                height={20}
-                alt="Favorites"
-              />
+              <Link href={"/search"}>
+                <Image
+                  src={"/search-zoom.svg"}
+                  width={20}
+                  height={20}
+                  alt="Search"
+                />
+              </Link>
+              <Link href={"/favorites"}>
+                <Image
+                  src={"/like-gray.svg"}
+                  width={20}
+                  height={20}
+                  alt="Favorites"
+                />
+              </Link>
               <button onClick={toggleMenu} className="focus:outline-none">
                 {isMenuOpen ? (
-                  <X onClick={()=>{
-                    setIsMenuOpen(false)
-                    setSubGroupOpened(false)
-                    setCatelogOpened(false)
-                  }} size={24} />
+                  <X
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setSubGroupOpened(false);
+                      setCatelogOpened(false);
+                    }}
+                    size={24}
+                  />
                 ) : (
                   <Image src={"/menu.svg"} width={24} height={24} alt="Menu" />
                 )}
@@ -86,7 +95,10 @@ export default function NavMobile({ filteredGroup, groups }: Props) {
                   </li>
                   {NAV_LINKS.map((item, index) => (
                     <Link href={item.slug} key={index}>
-                      <li className={`cursor-pointer text-lg font-medium `}>
+                      <li
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`cursor-pointer text-lg font-medium `}
+                      >
                         <span>{item.title}</span>
                       </li>
                     </Link>

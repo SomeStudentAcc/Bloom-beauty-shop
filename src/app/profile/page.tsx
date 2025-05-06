@@ -3,6 +3,11 @@ import ProfileInfo from './ProfileInfo'
 import ProfileOrders from './ProfileOrders'
 import axiosInstance from '@/axios';
 import { IGetData } from '@/types';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Profile'
+};
 
 export default async function Profile() {
   const res = await axiosInstance.get("/get-data/");

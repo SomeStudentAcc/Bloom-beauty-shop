@@ -22,6 +22,12 @@ export default function CartItemMobile({ product, removeProduct }: Props) {
     }
   }, [cart, product.id]);
 
+    useEffect(() => {
+      if (amount < 1) {
+        removeProduct(product.id);
+      }
+    }, [amount]);
+
   return (
     <div className="relative py-8 border-[#F3F3F3] border-b">
       <div className="absolute right-0">
@@ -72,7 +78,6 @@ export default function CartItemMobile({ product, removeProduct }: Props) {
               <button
                 onClick={() => {
                   decrease(product.id);
-                  removeProduct(product.id);
                   setAmount((prev) => prev--);
                 }}
                 className="px-2 border w-10 h-10 flex justify-center items-center"

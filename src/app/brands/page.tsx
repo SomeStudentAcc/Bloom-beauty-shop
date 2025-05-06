@@ -2,6 +2,11 @@ import React from "react";
 import BrandsContainer from "./BrandsContainer";
 import {  IGetProducts } from "@/types";
 import axiosInstance from "@/axios";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Brands'
+};
 
 export default async function Brands() {
 
